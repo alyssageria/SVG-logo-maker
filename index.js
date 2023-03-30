@@ -1,20 +1,15 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const shapes = require('./lib/shapes');
+const { Shapes, Circle, Triangle, Square } = require('./lib/shapes');
 const generateSVG = require('./lib/generateSVG');
 
-class Svg {
-    constructor() {
-
-    }
-}
 
 const questions = [
     {
         type: 'input',
         name: 'text',
         message: 'TEXT: Please enter up to 3 characters',
-        validate: value => value.length > 3 ? 'Input must be 3 characters or less' : true,
+        validate: text => text.length > 3 ? 'Input must be 3 characters or less' : true,
     },
     {
         type: 'input',
@@ -34,6 +29,20 @@ const questions = [
     }
 ]
 
+function generateShapes(data) {
+    let userInput = data.shape;
+    if (userInput === "Circle") {
+        let circleInput = new Circle(data.text, data.textColor, data.shape, data.shapeColor);
+        return circleInput.render();
+    } else if (userInput === "Triangle") {
+        let triangleInput = new Triangle(data.text, data.textColor, data.shape, data.shapeColor);
+        return triangleInput.render();
+    } else if (userInput === "Square") {
+        let squareInput = new Square(data.text, data.textColor, data.shape, data.shapeColor);
+        return squareInput.render();
+    }
+}
+
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) =>
         err ? console.error(err) : console.log('SVG logo created!')
@@ -42,10 +51,12 @@ function writeToFile(fileName, data) {
 
 function init() {
     inquirer.prompt(questions)
-        .then(function (data) {
-            writeToFile('logo.svg', generateSVG(data));
+        .then((data) => {
+            writeToFile('logo.svg', generateShapes(data));
             console.log(data)
         })
 }
 
 init();
+
+// module.exports = index.js
