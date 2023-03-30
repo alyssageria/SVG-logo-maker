@@ -1,8 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const { Shapes, Circle, Triangle, Square } = require('./lib/shapes');
-const generateSVG = require('./lib/generateSVG');
-
 
 const questions = [
     {
@@ -52,11 +50,9 @@ function writeToFile(fileName, data) {
 function init() {
     inquirer.prompt(questions)
         .then((data) => {
-            writeToFile('logo.svg', generateShapes(data));
+            writeToFile('./examples/square.svg', generateShapes(data));
             console.log(data)
         })
 }
 
 init();
-
-// module.exports = index.js
