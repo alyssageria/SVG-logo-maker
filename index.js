@@ -1,7 +1,9 @@
+// packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
 const { Shapes, Circle, Triangle, Square } = require('./lib/shapes');
 
+// Array of questions for user input
 const questions = [
     {
         type: 'input',
@@ -27,6 +29,7 @@ const questions = [
     }
 ]
 
+// Function to generate selected shape
 function generateShapes(data) {
     let userInput = data.shape;
     if (userInput === "Circle") {
@@ -41,12 +44,14 @@ function generateShapes(data) {
     }
 }
 
+// Function to write to a logo.svg file
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) =>
         err ? console.error(err) : console.log('SVG logo created!')
     )
 }
 
+// Function to initialize the app
 function init() {
     inquirer.prompt(questions)
         .then((data) => {
@@ -55,4 +60,5 @@ function init() {
         })
 }
 
+// Calls initialize app function
 init();
