@@ -50,7 +50,7 @@ function writeToFile(fileName, data) {
 function init() {
     inquirer.prompt(questions)
         .then((data) => {
-            writeToFile('./examples/square.svg', generateShapes(data));
+            writeToFile('logo.svg', generateShapes(data));
             console.log(data)
         })
 }
